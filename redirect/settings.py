@@ -7,7 +7,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'replace-me-with-a-secret-key')
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1' , '46.202.130.143' ,'www.godigiindia.shop' ,'godigiindia.shop' ]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
