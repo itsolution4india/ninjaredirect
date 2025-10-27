@@ -1,6 +1,6 @@
 from django.shortcuts import redirect
 from django.utils.deprecation import MiddlewareMixin
-from core.models import GoogleBotVisit
+from core.models import GoogleBotVisit ,NormalVisit
 import ipaddress
 
 # --- GOOGLEBOT IP RANGES (IPv4 + IPv6) ---
