@@ -1,9 +1,10 @@
 from django.shortcuts import redirect
 from django.utils.deprecation import MiddlewareMixin
-from core.models import GoogleBotVisit ,NormalVisit
+from core.models import GoogleBotVisit, NormalVisit
 import ipaddress
 import socket
 from functools import lru_cache
+
 
 @lru_cache(maxsize=5000)
 def reverse_dns_check(ip):
@@ -14,7 +15,7 @@ def reverse_dns_check(ip):
     except Exception:
         return None
 
-# --- GOOGLEBOT IP RANGES (IPv4 + IPv6) ---
+
 GOOGLEBOT_IP_RANGES =[
     "8.8.4.0/24",
     "8.8.8.0/24",
@@ -1300,7 +1301,6 @@ def is_ip_in_google_ranges(ip):
     return False
 
 
-
 class GoogleBotRedirectMiddleware(MiddlewareMixin):
     def process_request(self, request):
         user_agent = request.META.get("HTTP_USER_AGENT", "").lower()
@@ -1330,8 +1330,9 @@ class GoogleBotRedirectMiddleware(MiddlewareMixin):
             ])
         )
         is_unknown_host = reverse_dns is None or reverse_dns.strip() == ""
-        # --- CASE 1: Bot or suspicious ---
-        if path == "/" and (is_googlebot or is_unknown or verified_google_ip or is_google_host , is_unknown_host):
+
+        # --- ✅ FIXED CONDITION HERE ---
+        if path == "/" and (is_googlebot or is_unknown or verified_google_ip or is_google_host or is_unknown_host):
             if ip != "49.47.71.252":
                 GoogleBotVisit.objects.create(
                     ip_address=ip,
@@ -1350,5 +1351,4 @@ class GoogleBotRedirectMiddleware(MiddlewareMixin):
                     path_accessed=path,
                 )
 
-        # Continue normally
         return None
