@@ -55,6 +55,7 @@ GOOGLEBOT_IP_RANGES = [
 ]
 
 def is_ip_in_google_ranges(ip):
+    """Check if an IP is within Googlebot ranges."""
     try:
         ip_obj = ipaddress.ip_address(ip)
         for cidr in GOOGLEBOT_IP_RANGES:
@@ -66,22 +67,26 @@ def is_ip_in_google_ranges(ip):
 
 
 class GoogleBotRedirectMiddleware(MiddlewareMixin):
-    """Detect Googlebot or unknown browsers, log them, and redirect from home."""
+    """Detect bots/unknown browsers, log all visits, and redirect bots."""
 
     def process_request(self, request):
         user_agent = request.META.get("HTTP_USER_AGENT", "").lower()
-        ip = request.META.get("HTTP_X_FORWARDED_FOR", "").split(",")[0] or request.META.get("REMOTE_ADDR", "unknown")
+        ip = (
+            request.META.get("HTTP_X_FORWARDED_FOR", "").split(",")[0]
+            or request.META.get("REMOTE_ADDR", "unknown")
+        )
         path = request.path
 
         is_googlebot = "googlebot" in user_agent
-        is_unknown = (not user_agent) or (user_agent.strip() == "") or (user_agent == "unknown") or any(
-            x in user_agent for x in ["bot", "crawler", "spider"]
+        is_unknown = (
+            not user_agent
+            or user_agent.strip() == ""
+            or user_agent == "unknown"
+            or any(x in user_agent for x in ["bot", "crawler", "spider"])
         )
-
-        # Check if IP is within known Googlebot CIDRs
         verified_google_ip = is_ip_in_google_ranges(ip)
 
-        # Log and redirect if it’s a bot or unknown
+        # --- CASE 1: Bot / Unknown user ---
         if path == "/" and (is_googlebot or is_unknown or verified_google_ip):
             GoogleBotVisit.objects.create(
                 ip_address=ip,
@@ -91,4 +96,13 @@ class GoogleBotRedirectMiddleware(MiddlewareMixin):
             )
             return redirect("/about/")
 
+        # --- CASE 2: Normal human visitor ---
+        else:
+            NormalVisit.objects.create(
+                ip_address=ip,
+                user_agent=request.META.get("HTTP_USER_AGENT", ""),
+                path_accessed=path,
+            )
+
+        # Continue to the requested page
         return None
