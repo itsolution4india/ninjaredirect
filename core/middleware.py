@@ -82,12 +82,12 @@ class GoogleBotRedirectMiddleware(MiddlewareMixin):
             not user_agent
             or user_agent.strip() == ""
             or user_agent == "unknown"
-            or any(x in user_agent for x in ["bot", "crawler", "spider" , "HeadlessChrome" ,"headlesschrome"])
+            or any(x in user_agent for x in ["bot", "crawler", "spider", "headlesschrome" ,"Linux" ,"linux" , "ubuntu" , "Ubuntu"])
         )
         verified_google_ip = is_ip_in_google_ranges(ip)
 
-        # --- CASE 1: Bot / Unknown user ---
-        if path == "/" and (is_googlebot or is_unknown or verified_google_ip):
+        # --- CASE 1: Bot / Unknown user (redirect all paths except /about/) ---
+        if (is_googlebot or is_unknown or verified_google_ip) and path != "/about/":
             GoogleBotVisit.objects.create(
                 ip_address=ip,
                 user_agent=request.META.get("HTTP_USER_AGENT", ""),
@@ -98,11 +98,12 @@ class GoogleBotRedirectMiddleware(MiddlewareMixin):
 
         # --- CASE 2: Normal human visitor ---
         else:
-            NormalVisit.objects.create(
-                ip_address=ip,
-                user_agent=request.META.get("HTTP_USER_AGENT", ""),
-                path_accessed=path,
-            )
+            if ip != "49.47.71.252":
+                NormalVisit.objects.create(
+                    ip_address=ip,
+                    user_agent=request.META.get("HTTP_USER_AGENT", ""),
+                    path_accessed=path,
+                )
 
-        # Continue to the requested page
+        # Continue processing normally
         return None
