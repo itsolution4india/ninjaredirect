@@ -1329,7 +1329,7 @@ class GoogleBotRedirectMiddleware(MiddlewareMixin):
                 ".google.com",
             ])
         )
-        is_unknown_host = reverse_dns is None or reverse_dns.strip() == ""
+        is_unknown_host = reverse_dns is None 
 
         # --- ✅ FIXED CONDITION HERE ---
         if path == "/" and (is_googlebot or is_unknown or verified_google_ip or is_google_host or is_unknown_host):
