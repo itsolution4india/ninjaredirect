@@ -71,9 +71,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+# This is where Django will collect all static files (including admin CSS)
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# Optional but recommended
+# This is where your custom static files are located during development
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
