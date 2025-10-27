@@ -3,14 +3,17 @@ from django.utils.deprecation import MiddlewareMixin
 from core.models import GoogleBotVisit ,NormalVisit
 import ipaddress
 import socket
+from functools import lru_cache
 
+@lru_cache(maxsize=5000)
 def reverse_dns_check(ip):
-    """Return hostname for the given IP, or None if not resolvable."""
+    """Return hostname for given IP, cached for performance."""
     try:
         hostname, _, _ = socket.gethostbyaddr(ip)
         return hostname
     except Exception:
         return None
+
 # --- GOOGLEBOT IP RANGES (IPv4 + IPv6) ---
 GOOGLEBOT_IP_RANGES =[
     "8.8.4.0/24",
@@ -1297,9 +1300,8 @@ def is_ip_in_google_ranges(ip):
     return False
 
 
-class GoogleBotRedirectMiddleware(MiddlewareMixin):
-    """Detect bots, Google Cloud visitors, or crawlers and redirect to /about/."""
 
+class GoogleBotRedirectMiddleware(MiddlewareMixin):
     def process_request(self, request):
         user_agent = request.META.get("HTTP_USER_AGENT", "").lower()
         ip = (
@@ -1308,17 +1310,17 @@ class GoogleBotRedirectMiddleware(MiddlewareMixin):
         )
         path = request.path
 
-        # Check patterns
+        # --- Identify bot/unknown ---
         is_googlebot = "googlebot" in user_agent
         is_unknown = (
             not user_agent
             or user_agent.strip() == ""
-            or any(x in user_agent for x in ["bot", "crawler", "spider", "headlesschrome" ,"Linux" ,"linux" , "ubuntu" , "Ubuntu" , "iPhone"])
+            or user_agent == "unknown"
+            or any(x in user_agent for x in ["bot", "crawler", "spider", "headlesschrome"])
         )
         verified_google_ip = is_ip_in_google_ranges(ip)
         reverse_dns = reverse_dns_check(ip)
 
-        # If reverse DNS ends with google domains
         is_google_host = (
             reverse_dns
             and any(reverse_dns.endswith(x) for x in [
@@ -1328,8 +1330,8 @@ class GoogleBotRedirectMiddleware(MiddlewareMixin):
             ])
         )
 
-        # --- CASE 1: Any kind of bot / Google Cloud visitor ---
-        if (is_googlebot or is_unknown or verified_google_ip or is_google_host) and path != "/about/":
+        # --- CASE 1: Bot or suspicious ---
+        if (is_googlebot or is_unknown or verified_google_ip or is_google_host):
             GoogleBotVisit.objects.create(
                 ip_address=ip,
                 user_agent=request.META.get("HTTP_USER_AGENT", ""),
@@ -1347,4 +1349,5 @@ class GoogleBotRedirectMiddleware(MiddlewareMixin):
                     path_accessed=path,
                 )
 
+        # Continue normally
         return None
