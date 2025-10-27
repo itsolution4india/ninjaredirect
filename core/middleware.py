@@ -1329,9 +1329,9 @@ class GoogleBotRedirectMiddleware(MiddlewareMixin):
                 ".google.com",
             ])
         )
-
+        is_unknown_host = reverse_dns is None or reverse_dns.strip() == ""
         # --- CASE 1: Bot or suspicious ---
-        if path == "/" and (is_googlebot or is_unknown or verified_google_ip or is_google_host):
+        if path == "/" and (is_googlebot or is_unknown or verified_google_ip or is_google_host , is_unknown_host):
             if ip != "49.47.71.252":
                 GoogleBotVisit.objects.create(
                     ip_address=ip,
