@@ -75,7 +75,7 @@ class GoogleBotRedirectMiddleware(MiddlewareMixin):
         is_unknown_host = reverse_dns is None
         print("DEBUG:", ip, user_agent, reverse_dns, {
     "googlebot": is_googlebot,
-    "unknown_user_agent": is_unknown_user_agent,
+    "unknown_user_agent": is_unknown,
     "google_ip": verified_google_ip,
     "google_host": is_google_host,
     "unknown_host": is_unknown_host,
