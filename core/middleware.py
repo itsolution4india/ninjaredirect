@@ -73,7 +73,13 @@ class GoogleBotRedirectMiddleware(MiddlewareMixin):
             ])
         )
         is_unknown_host = reverse_dns is None
-
+        print("DEBUG:", ip, user_agent, reverse_dns, {
+    "googlebot": is_googlebot,
+    "unknown_user_agent": is_unknown_user_agent,
+    "google_ip": verified_google_ip,
+    "google_host": is_google_host,
+    "unknown_host": is_unknown_host,
+})
         # --- ✅ Redirect bots/unknown ONLY if visiting home ("/") ---
         if path == "/" and (is_googlebot or is_unknown or verified_google_ip or is_google_host or is_unknown_host):
             if ip != "49.47.71.252":
