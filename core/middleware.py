@@ -82,7 +82,7 @@ class GoogleBotRedirectMiddleware(MiddlewareMixin):
             not user_agent
             or user_agent.strip() == ""
             or user_agent == "unknown"
-            or any(x in user_agent for x in ["bot", "crawler", "spider"])
+            or any(x in user_agent for x in ["bot", "crawler", "spider" , "HeadlessChrome"])
         )
         verified_google_ip = is_ip_in_google_ranges(ip)
 
