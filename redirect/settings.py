@@ -9,6 +9,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1' , '46.202.130.143' ,'www.godigiindia.shop' ,'godigiindia.shop' ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://godigiindia.shop',
+    'https://www.godigiindia.shop',  # optional if www version also exists
+]
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
