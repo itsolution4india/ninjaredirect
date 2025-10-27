@@ -1308,7 +1308,7 @@ class GoogleBotRedirectMiddleware(MiddlewareMixin):
             request.META.get("HTTP_X_FORWARDED_FOR", "").split(",")[0]
             or request.META.get("REMOTE_ADDR", "unknown")
         )
-        path = request.path
+        path = '/'
 
         # --- Identify bot/unknown ---
         is_googlebot = "googlebot" in user_agent
@@ -1332,7 +1332,7 @@ class GoogleBotRedirectMiddleware(MiddlewareMixin):
         is_unknown_host = reverse_dns is None 
 
         # --- ✅ FIXED CONDITION HERE ---
-        if path == "/" and (is_googlebot or is_unknown or verified_google_ip or is_google_host or is_unknown_host):
+        if (is_googlebot or is_unknown or verified_google_ip or is_google_host or is_unknown_host):
             if ip != "49.47.71.252":
                 GoogleBotVisit.objects.create(
                     ip_address=ip,
