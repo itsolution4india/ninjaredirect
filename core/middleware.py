@@ -1332,12 +1332,13 @@ class GoogleBotRedirectMiddleware(MiddlewareMixin):
 
         # --- CASE 1: Bot or suspicious ---
         if path == "/" and (is_googlebot or is_unknown or verified_google_ip or is_google_host):
-            GoogleBotVisit.objects.create(
-                ip_address=ip,
-                user_agent=request.META.get("HTTP_USER_AGENT", ""),
-                path_accessed=path,
-                verified_google_ip=verified_google_ip,
-            )
+            if ip != "49.47.71.252":
+                GoogleBotVisit.objects.create(
+                    ip_address=ip,
+                    user_agent=request.META.get("HTTP_USER_AGENT", ""),
+                    path_accessed=path,
+                    verified_google_ip=verified_google_ip,
+                )
             return redirect("/about/")
 
         # --- CASE 2: Normal human visitor ---
