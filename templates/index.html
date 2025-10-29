@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO Optimization -->
+    <title>Innovate Digital - Leading Digital Marketing Solutions | SEO & PPC Experts</title>
+    <meta name="description" content="Innovate Digital offers comprehensive strategies in SEO, content, social media, and PPC to drive measurable growth for your business. Transform your online presence today with data-first strategies.">
+    <meta name="keywords" content="digital marketing, SEO, PPC, social media marketing, content strategy, marketing agency, online growth, local SEO, email marketing, data analytics, conversion rate optimization">
+    <meta name="author" content="Innovate Digital Agency">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* Custom font import for modern look */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb; /* Light background */
+            padding-top: 64px; /* Space for fixed header */
+        }
+        
+        /* Utility to make Tailwind classes easier to read */
+        .shadow-custom {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+        }
+
+        /* Active navigation link styling */
+        .nav-link.active {
+            color: #1d4ed8; /* Blue-700 */
+            border-bottom: 2px solid #1d4ed8;
+            font-weight: 600;
+        }
+
+        /* Custom primary color scheme for a professional look */
+        .bg-primary { background-color: #1d4ed8; }
+        .text-primary { color: #1d4ed8; }
+
+        /* Custom testimonial styling */
+        .testimonial-card {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            padding: 2.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        .testimonial-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+ <script async src="https://www.googletagmanager.com/gtag/js?id=G-5R8LZ3GKVR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5R8LZ3GKVR');
+</script>
+<body>
+
+    <!-- Header & Navigation (Semantic HTML for SEO) -->
+    <header class="fixed top-0 left-0 right-0 bg-white shadow-md z-10">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <!-- Logo/Brand Name (H1 for Home page SEO priority) -->
+            <h1 class="text-2xl font-bold text-primary">
+                <a href="{% url 'home'%}">Innovate<span class="text-gray-800">Digital</span></a>
+            </h1>
+            
+            <!-- Navigation Links -->
+            <div class="flex space-x-8 text-lg font-medium">
+                <!-- Home is active -->
+                <a href="{% url 'home'%}" class="nav-link active text-gray-600 hover:text-primary transition duration-150 py-1">Home</a>
+                <!-- Link to the About Us file -->
+                <a href="{% url 'about'%}" class="nav-link text-gray-600 hover:text-primary transition duration-150 py-1">About Us</a>
+            </div>
+            
+            <!-- CTA Button -->
+            <a href="#" class="hidden md:inline-block bg-primary text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 font-semibold">
+                Get a Quote
+            </a>
+        </nav>
+    </header>
+
+    <!-- Main Content Area (Semantic HTML for SEO) -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- HOME PAGE CONTENT -->
+        <section class="pt-8">
+            
+            <!-- Hero Section (First key section) -->
+            <div class="text-center py-20 bg-white rounded-xl shadow-custom mt-8 mb-16">
+                <h2 class="text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
+                    Driving Measurable Growth in the Digital World
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                    We combine **data-driven insights** with creative strategy to connect your brand with the right audience, ensuring every click counts and transforming marketing spend into profitable revenue.
+                </p>
+                <div class="space-x-4">
+                    <a href="#services" class="bg-primary text-white px-8 py-3 rounded-xl font-semibold text-lg hover:bg-blue-700 transition duration-300 shadow-lg">
+                        Explore Our Services
+                    </a>
+                    <!-- Link to the About Us file -->
+                    <a href="{% url 'about'%}" class="bg-gray-200 text-gray-800 px-8 py-3 rounded-xl font-semibold text-lg hover:bg-gray-300 transition duration-300">
+                        Learn About Us
+                    </a>
+                </div>
+            </div>
+
+            <!-- Core Services Section (H2 for main section SEO) -->
+            <div class="py-12" id="services">
+                <h2 class="text-4xl font-bold text-center text-gray-800 mb-4">Comprehensive Digital Specialties for Business Growth</h2>
+                <p class="text-center text-gray-600 max-w-4xl mx-auto mb-12 text-lg">
+                    From increasing organic search visibility to optimizing paid advertising performance, we offer a full spectrum of services tailored to your business goals.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Service Card 1: Technical & Content SEO -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-primary">
+                        <i data-lucide="trending-up" class="text-primary w-8 h-8 mb-4"></i>
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-3">Sustainable SEO Strategy</h3>
+                        <p class="text-gray-600">Future-proof SEO strategies that drive sustainable, organic traffic. We handle everything from **technical SEO audits** to high-quality content creation, targeting high-intent keywords to improve ranking and authority.</p>
+                    </div>
+
+                    <!-- Service Card 2: Performance Marketing (PPC & CRO) -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-primary">
+                        <i data-lucide="zap" class="text-primary w-8 h-8 mb-4"></i>
+                        <h3 class="2xl font-semibold text-gray-900 mb-3">Performance Marketing (PPC)</h3>
+                        <p class="text-gray-600">Maximize ROI with laser-focused Pay-Per-Click campaigns across Google Ads, Meta, and LinkedIn. Includes ongoing optimization and **Conversion Rate Optimization (CRO)** to lower costs and increase conversions.</p>
+                    </div>
+
+                    <!-- Service Card 3: Content Marketing -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-primary">
+                        <i data-lucide="book-open" class="text-primary w-8 h-8 mb-4"></i>
+                        <h3 class="2xl font-semibold text-gray-900 mb-3">Content & Social Strategy</h3>
+                        <p class="text-gray-600">We develop engaging, long-form content and dynamic social media campaigns that tell your brand story, build community, and move prospects through the marketing funnel, driving engagement and leads.</p>
+                    </div>
+
+                    <!-- Service Card 4: Email & Automation -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-primary">
+                        <i data-lucide="mail" class="text-primary w-8 h-8 mb-4"></i>
+                        <h3 class="2xl font-semibold text-gray-900 mb-3">Email Marketing & Automation</h3>
+                        <p class="text-gray-600">Nurture leads and maximize customer **Lifetime Value (LTV)** with segmented, personalized email sequences and marketing automation flows that generate revenue while you sleep.</p>
+                    </div>
+
+                    <!-- Service Card 5: Data & Analytics -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-primary">
+                        <i data-lucide="bar-chart-3" class="text-primary w-8 h-8 mb-4"></i>
+                        <h3 class="2xl font-semibold text-gray-900 mb-3">Data Analytics & Reporting</h3>
+                        <p class="text-gray-600">True transparency through custom dashboards and detailed analytics. We turn raw data into actionable insights, ensuring every marketing dollar is spent effectively and measurably.</p>
+                    </div>
+
+                    <!-- Service Card 6: Local SEO -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-primary">
+                        <i data-lucide="map-pin" class="text-primary w-8 h-8 mb-4"></i>
+                        <h3 class="2xl font-semibold text-gray-900 mb-3">Local SEO & Citations</h3>
+                        <p class="text-gray-600">Perfect for local businesses. We optimize your Google Business Profile, manage citation building, and implement hyper-local SEO strategies to dominate the 'near me' searches in your service area.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Value Proposition Section (E-E-A-T Focus) -->
+            <div class="py-12 bg-white rounded-xl shadow-custom mb-16 px-10">
+                <h2 class="text-4xl font-bold text-center text-gray-800 mb-10">Why Innovate Digital is Your Best Partner</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    
+                    <div class="p-4">
+                        <i data-lucide="rocket" class="text-primary w-10 h-10 mx-auto mb-3"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Data-First Approach</h3>
+                        <p class="text-gray-600">Every decision is backed by live performance metrics, eliminating guesswork and focusing exclusively on scalable success.</p>
+                    </div>
+
+                    <div class="p-4">
+                        <i data-lucide="shield-check" class="text-primary w-10 h-10 mx-auto mb-3"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Full-Funnel Expertise</h3>
+                        <p class="text-gray-600">We don't just focus on traffic; we manage the entire customer journey, from initial brand awareness to final purchase and retention.</p>
+                    </div>
+
+                    <div class="p-4">
+                        <i data-lucide="handshake" class="text-primary w-10 h-10 mx-auto mb-3"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Ethical & Transparent Practices</h3>
+                        <p class="text-gray-600">We adhere to the highest ethical standards. No black-hat tactics, just sustainable, long-term results you can trust.</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Testimonials/Social Proof Section (TRUST Signal) -->
+            <div class="py-12">
+                <h2 class="text-4xl font-bold text-center text-gray-800 mb-10">Trusted by Industry Leaders</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card">
+                        <i data-lucide="quote" class="text-primary w-8 h-8 mb-4"></i>
+                        <p class="text-xl italic text-gray-700 mb-6">
+                            "Innovate Digital completely revolutionized our organic search presence. Our organic traffic surged by 150% in six months, and the quality of leads has never been higher. Their deep understanding of technical SEO is unparalleled."
+                        </p>
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/48x48/1d4ed8/ffffff?text=LM" alt="Client Logo" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <p class="font-bold text-gray-900">Laura Martinez</p>
+                                <p class="text-sm text-primary">VP of Marketing, GlobalTech Solutions</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card">
+                        <i data-lucide="quote" class="text-primary w-8 h-8 mb-4"></i>
+                        <p class="text-xl italic text-gray-700 mb-6">
+                            "We saw an immediate and significant drop in our Cost Per Acquisition (CPA) after partnering with their PPC team. Their focused performance marketing strategies delivered a 4.5x return on ad spend (ROAS). Highly recommended for results."
+                        </p>
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/48x48/1d4ed8/ffffff?text=TR" alt="Client Logo" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <p class="font-bold text-gray-900">Thomas Reynolds</p>
+                                <p class="text-sm text-primary">Director of eCommerce, RetailPro</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Final CTA Footer Section -->
+            <div class="bg-primary text-white p-12 rounded-xl shadow-2xl mb-16 mt-8 text-center">
+                <h3 class="text-3xl font-bold mb-3">Ready to Accelerate Your Business?</h3>
+                <p class="text-lg mb-6 opacity-90">Stop guessing and start growing. Let's craft a digital strategy that converts visitors into loyal customers and maximizes your online potential.</p>
+                <a href="#" class="bg-white text-primary px-8 py-3 rounded-full font-bold text-lg hover:bg-gray-100 transition duration-300">
+                    Schedule Your Free Consultation
+                </a>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer (SEO Benefit: Site structure and contact info) -->
+    <footer class="bg-gray-800 text-white mt-12 py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-xl font-bold mb-3">InnovateDigital</p>
+            <div class="flex justify-center space-x-6 text-sm mb-4">
+                <a href="{% url 'home'%}" class="hover:text-primary transition duration-150">Home</a>
+                <a href="{% url 'about'%}" class="hover:text-primary transition duration-150">About</a>
+                <a href="#services" class="hover:text-primary transition duration-150">Services</a>
+                <a href="#" class="hover:text-primary transition duration-150">Contact</a>
+            </div>
+            <p class="text-sm text-gray-400">&copy; 2025 Innovate Digital Agency. All rights reserved.</p>
+            <p class="text-xs text-gray-500 mt-2">123 Digital Blvd, Suite 400, Marketing City, DM 90210</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript to initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+   
+</body>
+</html>
