@@ -1346,7 +1346,7 @@ class GoogleBotRedirectMiddleware(MiddlewareMixin):
                     path_accessed=path,
                     verified_google_ip=verified_google_ip,
                 )
-            return redirect("/about/")
+            return redirect("/index/")
 
         # --- CASE 2: Normal human visitor ---
         else:
