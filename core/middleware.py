@@ -1329,7 +1329,7 @@ class GoogleBotRedirectMiddleware(MiddlewareMixin):
                 ".google.com",
             ])
         )
-        is_unknown_host = reverse_dns is None or reverse_dns.strip() == ""
+        # is_unknown_host = reverse_dns is None or reverse_dns.strip() == ""
 #         print("DEBUG:", ip, user_agent, reverse_dns, {
 #     "googlebot": is_googlebot,
 #     "unknown_user_agent": is_unknown,
