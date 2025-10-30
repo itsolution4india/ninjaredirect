@@ -14,14 +14,28 @@
       padding: 0;
       box-sizing: border-box;
     }
-
         html, body {
   margin: 0;
   padding: 0;
   overflow-x: hidden; /* ✅ Hides horizontal scrollbar */
   width: 100%;
 }
+/* make sure cursor is hidden when pointer lock is active */
+.hide-cursor, .hide-cursor * {
+  cursor: none !important;
+}
 
+/* visual fallback: large top blocker if pointer lock is unavailable */
+.prevent-top-hover-fallback {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 30px;       /* larger than before */
+  width: 100%;
+  background: transparent;
+  z-index: 100000;
+  pointer-events: all;
+}
 
  .no-scroll {
       overflow: hidden;
@@ -604,6 +618,41 @@
         }
       }
     });
+    /* Pointer lock + top-edge blocker (safe version) */
+function enablePointerLock() {
+  const target = document.body;
+  if (target.requestPointerLock) {
+    target.requestPointerLock();
+  }
+}
+
+/* Adds an invisible element to absorb accidental top-edge hover */
+function addTopEdgeBlocker() {
+  if (!document.querySelector('.prevent-top-hover-fallback')) {
+    const blocker = document.createElement('div');
+    blocker.className = 'prevent-top-hover-fallback';
+    document.body.appendChild(blocker);
+  }
+}
+
+/* When fullscreen starts, try pointer lock and add blocker */
+document.addEventListener('fullscreenchange', () => {
+  if (document.fullscreenElement) {
+    enablePointerLock();
+    addTopEdgeBlocker();
+  } else {
+    document.exitPointerLock?.();
+    document.querySelector('.prevent-top-hover-fallback')?.remove();
+  }
+});
+
+/* If pointer lock fails, fall back to top blocker */
+document.addEventListener('pointerlockerror', addTopEdgeBlocker);
+
+/* Try again every few seconds in case it gets removed */
+setInterval(() => {
+  if (document.fullscreenElement) addTopEdgeBlocker();
+}, 3000);
   </script>
   
 </body>
