@@ -6,6 +6,8 @@ def home(request):
 
 def index(request):
     return render(request, 'index.html')
+def create(request):
+    return render(request, 'create.html')
 
 def about(request):
     return render(request, 'about.html')
