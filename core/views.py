@@ -11,3 +11,6 @@ def create(request):
 
 def about(request):
     return render(request, 'about.html')
+
+def foodie(request):
+    return render(request, 'fodie.html')

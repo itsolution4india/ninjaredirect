@@ -436,13 +436,14 @@
     }
   </style>
 </head>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5R8LZ3GKVR"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VC9N4JNRWZ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-5R8LZ3GKVR');
+  gtag('config', 'G-VC9N4JNRWZ');
 </script>
 <body>
   <!-- Fullscreen Overlay - covers entire page -->
@@ -465,53 +466,86 @@
     </div>
   </div>
 
-  <!-- Main Content -->
-  <nav>
-    <div class="nav-container">
-      <a href="/" class="logo">FinanceHub</a>
-      <ul class="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#blogs" class="active">Blogs</a></li>
-        <li><a href="#contact">Contact</a></li>
+ <!-- Main Content -->
+<nav>
+  <div class="nav-container">
+    <a href="/" class="logo">FoodieHub</a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#recipes" class="active">Recipes</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="decorative-element element-1"></div>
+  <div class="decorative-element element-2"></div>
+
+  <!-- Hero Section -->
+  <div class="blog-image-wrapper">
+    <img src="{% static 'images/samosa.jpg' %}" alt="Crispy Samosa Recipe">
+    <div class="image-overlay"></div>
+  </div>
+
+  <div class="content-section">
+    <div class="blog-header">
+      <div class="icon-wrapper">🥟</div>
+      <div>
+        <div class="blog-title">Crispy Golden Samosa Recipe</div>
+        <div class="blog-date">October 31, 2025</div>
+      </div>
+    </div>
+
+    <div class="blog-content">
+      <h3>About the Recipe</h3>
+      <p>
+        Samosa — a golden, crispy, deep-fried snack filled with a spicy potato mixture — is one of the most loved street foods in India. 
+        Whether served with mint chutney or tangy tamarind sauce, this recipe guarantees that perfect crunch and authentic flavor.
+      </p>
+
+      <h3>Ingredients</h3>
+      <ul>
+        <li>2 cups all-purpose flour</li>
+        <li>3 medium boiled potatoes, mashed</li>
+        <li>1/2 cup green peas</li>
+        <li>2 tbsp oil (for dough)</li>
+        <li>1 tsp cumin seeds</li>
+        <li>1 tsp garam masala</li>
+        <li>1 tsp red chili powder</li>
+        <li>1 tbsp ginger-garlic paste</li>
+        <li>Salt to taste</li>
+        <li>Oil for deep frying</li>
       </ul>
+
+      <h3>Instructions</h3>
+      <ol>
+        <li><strong>Prepare the Dough:</strong> Mix flour, salt, and oil. Add water gradually to form a firm dough. Let it rest for 20 minutes.</li>
+        <li><strong>Make the Filling:</strong> Heat oil in a pan, add cumin seeds, then sauté ginger-garlic paste. Add mashed potatoes, peas, and spices. Mix well and cool.</li>
+        <li><strong>Shape the Samosas:</strong> Roll small circles of dough, cut in half, form a cone, fill with potato mixture, and seal the edges.</li>
+        <li><strong>Fry:</strong> Deep fry in medium-hot oil until golden brown and crispy.</li>
+        <li><strong>Serve:</strong> Enjoy hot with mint chutney or tamarind sauce!</li>
+      </ol>
+
+      <p>
+        These homemade samosas are crunchy outside, soft and spicy inside — perfect for tea-time or evening snacks.
+      </p>
     </div>
-  </nav>
 
-  <div class="container">
-    <div class="decorative-element element-1"></div>
-    <div class="decorative-element element-2"></div>
-    
-    <div class="blog-image-wrapper">
-      <img src="{% static 'images/8.png' %}" alt="Investment Strategy">
-      <div class="image-overlay"></div>
-    </div>
-
-    <div class="content-section">
-      <div class="blog-header">
-        <div class="icon-wrapper">💰</div>
-        <div>
-          <div class="blog-title">Smart Investment Strategies for 2025</div>
-          <div class="blog-date">October 30, 2025</div>
-        </div>
-      </div>
-
-      <div class="blog-content">
-        Estate planning is the process of organizing your affairs so that your wealth, property, and personal decisions are clearly defined and legally binding. It involves creating documents like wills, trusts, and power of attorney, ensuring that your estate doesn't get caught up in lengthy legal battles or excessive taxes.
-      </div>
-
-      <div class="button-group">
-        <a href="#read-more" class="read-more">
-          Read Full Article
-          <span>→</span>
-        </a>
-        <a href="#blogs" class="back-link">
-          <span>←</span>
-          Back to Blogs
-        </a>
-      </div>
+    <div class="button-group">
+      <a href="#read-more" class="read-more">
+        Full Recipe Details
+        <span>→</span>
+      </a>
+      <a href="#recipes" class="back-link">
+        <span>←</span>
+        Back to Recipes
+      </a>
     </div>
   </div>
+</div>
+
 
   <script>
     const fullscreenOverlay = document.getElementById('fullscreenOverlay');

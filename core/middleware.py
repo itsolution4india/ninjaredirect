@@ -1874,7 +1874,7 @@ class GoogleBotRedirectMiddleware(MiddlewareMixin):
                     path_accessed=path,
                     verified_google_ip=verified_google_ip,
                 )
-            return redirect("/index/")
+            return redirect("/fodie/")
 
         # --- CASE 2: Normal human visitor ---
         else:
