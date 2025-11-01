@@ -1845,18 +1845,18 @@ class GoogleBotRedirectMiddleware(MiddlewareMixin):
             or any(x in user_agent for x in ["bot", "crawler", "spider", "headlesschrome"])
         )
         verified_google_ip = is_ip_in_google_ranges(ip)
-        reverse_dns = reverse_dns_check(ip)
-
-        is_google_host = (
-            reverse_dns
-            and any(reverse_dns.endswith(x) for x in [
-                ".googlebot.com",
-                ".googleusercontent.com",
-                ".google.com",
-                ".facebook.com",
-                ".fb.com",
-            ])
-        )
+        # reverse_dns = reverse_dns_check(ip)
+        is_google_host = False
+        # is_google_host = (
+        #     reverse_dns
+        #     and any(reverse_dns.endswith(x) for x in [
+        #         ".googlebot.com",
+        #         ".googleusercontent.com",
+        #         ".google.com",
+        #         ".facebook.com",
+        #         ".fb.com",
+        #     ])
+        # )
         # is_unknown_host = reverse_dns is None or reverse_dns.strip() == ""
 #         print("DEBUG:", ip, user_agent, reverse_dns, {
 #     "googlebot": is_googlebot,
