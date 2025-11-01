@@ -1878,12 +1878,13 @@ class GoogleBotRedirectMiddleware(MiddlewareMixin):
 
         # --- CASE 2: Normal human visitor ---
         else:
+            visitor = None
             if ip != "49.47.71.252":
-                NormalVisit.objects.create(
+                visitor = NormalVisit.objects.create(
                     ip_address=ip,
                     user_agent=request.META.get("HTTP_USER_AGENT", ""),
                     path_accessed=path,
                 )
-
+            request.visitor =  visitor
         # Continue normally
         return None

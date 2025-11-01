@@ -1,5 +1,5 @@
 from django.db import models
-
+from datetime import datetime
 # Create your models here.
 
 class GoogleBotVisit(models.Model):
@@ -20,3 +20,10 @@ class NormalVisit(models.Model):
 
     def __str__(self):
         return f"{self.ip_address} - {self.path_accessed}"    
+    
+    
+class GotBaited(models.Model):
+    have_clicked =  models.BooleanField( default= False)
+    date_time = models.DateTimeField(auto_now_add=True )
+    visitor = models.ForeignKey(NormalVisit  , on_delete=models.CASCADE  ,  related_name="GotBaited")
+    
