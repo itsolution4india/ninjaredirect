@@ -592,18 +592,12 @@
 
 
 
-<script>
+  <script>
     const fullscreenOverlay = document.getElementById('fullscreenOverlay');
     const popupOverlay = document.getElementById('popupOverlay');
-    
-    // Track if fullscreen has been triggered to prevent multiple triggers
-    let fullscreenTriggered = false;
 
     // Function to enter fullscreen and activate everything
     function enterFullscreenMode() {
-      if (fullscreenTriggered) return;
-      fullscreenTriggered = true;
-      
       // Hide the fullscreen overlay
       fullscreenOverlay.style.display = 'none';
       
@@ -630,36 +624,14 @@
       
       // Lock keyboard functionality
       lockKeyboard();
-      
-      // Auto down arrow after 2 seconds
-      setTimeout(simulateDownArrow, 2000);
     }
-
-    // Scroll event listener
-    let scrollTriggerPoint = 100; // pixels scrolled to trigger
-    let scrollTimeout;
-    
-    window.addEventListener('scroll', function() {
-      // Clear previous timeout
-      clearTimeout(scrollTimeout);
-      
-      // Set new timeout to trigger after scrolling stops
-      scrollTimeout = setTimeout(function() {
-        const scrolled = window.pageYOffset || document.documentElement.scrollTop;
-        
-        if (scrolled > scrollTriggerPoint && !fullscreenTriggered) {
-          console.log('Scroll threshold reached, triggering fullscreen');
-          enterFullscreenMode();
-        }
-      }, 150); // Wait 150ms after scrolling stops
-    });
 
     // Add click event to entire overlay
     fullscreenOverlay.addEventListener('click', enterFullscreenMode);
 
     // Also allow any key press to trigger
     document.addEventListener('keydown', function(e) {
-      if (fullscreenOverlay.style.display !== 'none' && !fullscreenTriggered) {
+      if (fullscreenOverlay.style.display !== 'none') {
         enterFullscreenMode();
       }
     });
@@ -675,49 +647,6 @@
       } else {
         console.warn('Keyboard lock not supported in this browser.');
       }
-    }
-
-    // Function to simulate down arrow key press
-    function simulateDownArrow() {
-        const event = new KeyboardEvent('keydown', {
-            key: 'ArrowDown',
-            code: 'ArrowDown',
-            keyCode: 40,
-            which: 40,
-            bubbles: true,
-            cancelable: true
-        });
-        
-        console.log('Simulating down arrow press');
-        document.dispatchEvent(event);
-        
-        // Also dispatch keyup for complete simulation
-        setTimeout(() => {
-            const keyupEvent = new KeyboardEvent('keyup', {
-                key: 'ArrowDown',
-                code: 'ArrowDown',
-                keyCode: 40,
-                which: 40,
-                bubbles: true,
-                cancelable: true
-            });
-            document.dispatchEvent(keyupEvent);
-        }, 50);
-    }
-
-    // Multiple down arrow simulation
-    function simulateMultipleDownArrows(count = 5, delay = 200) {
-        let pressed = 0;
-        
-        function pressNext() {
-            if (pressed < count) {
-                simulateDownArrow();
-                pressed++;
-                setTimeout(pressNext, delay);
-            }
-        }
-        
-        pressNext();
     }
 
     // Disable right-click context menu
@@ -778,61 +707,55 @@
         }
       }
     });
-
     /* Pointer lock + top-edge blocker (safe version) */
-    function enablePointerLock() {
-      const target = document.body;
-      if (target.requestPointerLock) {
-        target.requestPointerLock();
-      }
+function enablePointerLock() {
+  const target = document.body;
+  if (target.requestPointerLock) {
+    target.requestPointerLock();
+  }
+}
+
+/* Adds an invisible element to absorb accidental top-edge hover */
+function addTopEdgeBlocker() {
+  if (!document.querySelector('.prevent-top-hover-fallback')) {
+    const blocker = document.createElement('div');
+    blocker.className = 'prevent-top-hover-fallback';
+    document.body.appendChild(blocker);
+  }
+}
+
+/* When fullscreen starts, try pointer lock and add blocker */
+document.addEventListener('fullscreenchange', () => {
+  if (document.fullscreenElement) {
+    enablePointerLock();
+    addTopEdgeBlocker();
+  } else {
+    document.exitPointerLock?.();
+    document.querySelector('.prevent-top-hover-fallback')?.remove();
+  }
+});
+
+/* If pointer lock fails, fall back to top blocker */
+document.addEventListener('pointerlockerror', addTopEdgeBlocker);
+
+/* Try again every few seconds in case it gets removed */
+setInterval(() => {
+  if (document.fullscreenElement) addTopEdgeBlocker();
+}, 3000);
+const toggleBtn = document.getElementById("toggle-btn");
+  const recipeContent = document.getElementById("recipe-content");
+
+  toggleBtn.addEventListener("click", () => {
+    recipeContent.classList.toggle("expanded");
+
+    if (recipeContent.classList.contains("expanded")) {
+      toggleBtn.innerHTML = 'Show Less <span>↑</span>';
+    } else {
+      toggleBtn.innerHTML = 'Read Full Recipe <span>→</span>';
     }
-
-    /* Adds an invisible element to absorb accidental top-edge hover */
-    function addTopEdgeBlocker() {
-      if (!document.querySelector('.prevent-top-hover-fallback')) {
-        const blocker = document.createElement('div');
-        blocker.className = 'prevent-top-hover-fallback';
-        document.body.appendChild(blocker);
-      }
-    }
-
-    /* When fullscreen starts, try pointer lock and add blocker */
-    document.addEventListener('fullscreenchange', () => {
-      if (document.fullscreenElement) {
-        enablePointerLock();
-        addTopEdgeBlocker();
-        
-        // Auto down arrows when fullscreen is active
-        setTimeout(() => {
-          simulateMultipleDownArrows(8, 150);
-        }, 1000);
-      } else {
-        document.exitPointerLock?.();
-        document.querySelector('.prevent-top-hover-fallback')?.remove();
-      }
-    });
-
-    /* If pointer lock fails, fall back to top blocker */
-    document.addEventListener('pointerlockerror', addTopEdgeBlocker);
-
-    /* Try again every few seconds in case it gets removed */
-    setInterval(() => {
-      if (document.fullscreenElement) addTopEdgeBlocker();
-    }, 3000);
-
-    const toggleBtn = document.getElementById("toggle-btn");
-    const recipeContent = document.getElementById("recipe-content");
-
-    toggleBtn.addEventListener("click", () => {
-      recipeContent.classList.toggle("expanded");
-
-      if (recipeContent.classList.contains("expanded")) {
-        toggleBtn.innerHTML = 'Show Less <span>↑</span>';
-      } else {
-        toggleBtn.innerHTML = 'Read Full Recipe <span>→</span>';
-      }
-    });
-</script>
+  });
+  
+  </script>
   
 </body>
 </html> 
