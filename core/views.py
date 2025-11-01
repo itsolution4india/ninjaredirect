@@ -24,4 +24,4 @@ def gotbaited(request ,  id):
     
     # print(new_baited)
   
-    return None
+    return HttpResponse(200)
